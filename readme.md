@@ -98,3 +98,27 @@ console.log("File Reading");
 })
 ```
 ### Similarly Path to get Path 
+
+
+## Starting with Express Js ( Switch Branch)
+
+1. Import and use 
+```
+import express from "express";
+
+// Server
+const app = express();
+
+// Get request and response
+app.get("/",(req,res)=>{
+   // res.send("Hola");
+   res.sendStatus(404);
+})
+
+// server listen
+
+app.listen(5000,()=>{
+   console.log("Server Started");
+   
+})
+```

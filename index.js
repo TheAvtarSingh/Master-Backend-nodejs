@@ -1,56 +1,21 @@
-// import http
-// const http = require("http");
+import express from "express";
+import path from "path";
 
-import http from "http";
-import fs from "fs";
-import * as omobj from "./sayHello.js";
-// specify port
-const port = 5000;
+// Server
+const app = express();
 
-//  import custom modules
-// const sayHello = require("./sayHello.js");
+// server listen
 
-const home = fs.readFileSync("./index.html",()=>{
-console.log("File Reading");
-
+// Get request and response
+app.get("/",(req,res)=>{
+  
+ //  Sending File
+ 
+ const pathLocation = path.join(path.resolve(),"./index.html");
+ res.sendFile(pathLocation);
 })
 
-
-// Create Server with req and response
-const server  =  http.createServer((req,res)=>{
-    
-    // console.log(req.url);
-    // Routes
-    if(req.url === "/"){
-       res.end("Homepage");
-       res.end(sayHello("Avtar"));
-    }
-    else if(req.url === "/about"){
-       res.end("about");
-    }
-    else if(req.url === "/contact"){
-       res.end("contact");
-    }
-    else if(req.url === "/github"){
-       res.end("https://github.com/theavtarsingh");
-    }
-    
-});
-
-
-// Listen On Server
-server.listen(port,()=>{
-/*    console.log(omobj);
-   console.log(omobj.default("Yo"));
-   console.log(omobj.name1);
-   console.log(omobj.name2);
-   console.log(omobj.name3);
-   console.log(omobj.name4); */
-
-   console.log(omobj.rand());
-   console.log(home);
+app.listen(5000,()=>{
+   console.log("Server Started");
    
-   
-console.log(`Server Started at Port Number : ${port}`);
-
 })
