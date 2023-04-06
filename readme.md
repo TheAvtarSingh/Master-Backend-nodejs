@@ -97,4 +97,4 @@ console.log("File Reading");
 
 })
 ```
-### Simplarly Path to get Path 
+### Similarly Path to get Path 

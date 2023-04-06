@@ -10,7 +10,7 @@ const port = 5000;
 //  import custom modules
 // const sayHello = require("./sayHello.js");
 
-const home = fs.readFile("./index.html",()=>{
+const home = fs.readFileSync("./index.html",()=>{
 console.log("File Reading");
 
 })
