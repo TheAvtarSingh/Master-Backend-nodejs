@@ -206,3 +206,11 @@ const users = [];
 2. Push : 
    users.push({"Username":req.body.name,"Email":req.body.email,"Password":req.body.password});
    res.render("success.ejs");
+   
+   ![image](https://user-images.githubusercontent.com/88712571/230590330-987eacf6-5647-4837-950c-cf0fe3024fa6.png)
+   
+   ![image](https://user-images.githubusercontent.com/88712571/230590431-e4aa8bb1-a126-4527-9e88-6fc7c501866c.png)
+   
+   ![image](https://user-images.githubusercontent.com/88712571/230590564-7a9d1866-aba0-442f-ae16-54baa11a130b.png)
+
+3. Showing in Users Page "/users" -> success.ejs
