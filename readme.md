@@ -277,3 +277,75 @@ app.post("/contact",async (req, res) => {
 });
 
 ```
+## Authentication
+
+1. Make a Simple Login Page without any field
+2. Adding Cookies
+```app.post("/login",(req,res)=>{
+   res.cookie("token","iamin",{
+      httpOnly:true,
+      expires:new Date(Date.now()+60*1000)
+   })
+   res.render("submitted.ejs");
+})
+```
+
+image.png
+
+3. Getting out cookies
+use _cookie parser_
+`npm i cookie-parser`
+> Use `app.use(cookieParser());`
+>   console.log(req.cookies);
+
+4. routing on the basis of login and logout
+```
+
+app.post("/login",(req,res)=>{
+   res.cookie("token","iamin",{
+      httpOnly:true,
+      // expires:new Date(Date.now()+60*1000)
+   })
+   res.render("submitted.ejs");
+})
+
+app.get("/login_button",(req,res)=>{
+   const {token} = req.cookies;
+   if(token){
+      res.render("submitted.ejs");
+   }else{
+      res.render("login_button.ejs");
+   }
+
+})
+
+app.get("/logout",(req,res)=>{
+   res.cookie("token",null,{
+      httpOnly:true,
+      expires: new Date(Date.now()),
+   })
+   res.redirect("/");
+})
+```
+
+5. Seperate Handler (optional)
+
+```
+const isAuthenticated = (req,res,next) =>{
+   const {token} = req.cookies;
+   if(token){
+     next();
+   }else{
+      res.render("login_button.ejs");
+   }
+}
+```
+
+
+6. Call
+```
+app.get("/login_button",isAuthenticated,(req,res)=>{
+  
+res.render("submitted.ejs");
+})
+```

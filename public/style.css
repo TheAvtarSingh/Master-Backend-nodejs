@@ -46,4 +46,7 @@ button{
    margin-bottom: 30px;
     width: 80px;
     height: 40px;
+   
+    background-color: rgb(129, 43, 129);
+    color: white;
 }
