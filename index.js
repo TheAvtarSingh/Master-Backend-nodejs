@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
 // uri
-const uri = "mongodb+srv://singha2k2:Avtar123@backend.r2gb0rh.mongodb.net/?retryWrites=true&w=majority";
+const uri = "uri";
 
 // Mongoose Connect
 /* mongoose.connect(uri,{
