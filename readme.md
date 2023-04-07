@@ -200,9 +200,80 @@ app.post("/",(req,res)=>{
 }
 ```
 
+
 ### Lets Store the Data in Temp Array
 1. Make Array : 
 const users = [];
 2. Push : 
    users.push({"Username":req.body.name,"Email":req.body.email,"Password":req.body.password});
    res.render("success.ejs");
+   
+   ![image](https://user-images.githubusercontent.com/88712571/230590330-987eacf6-5647-4837-950c-cf0fe3024fa6.png)
+   
+   ![image](https://user-images.githubusercontent.com/88712571/230590431-e4aa8bb1-a126-4527-9e88-6fc7c501866c.png)
+   
+   ![image](https://user-images.githubusercontent.com/88712571/230590564-7a9d1866-aba0-442f-ae16-54baa11a130b.png)
+
+3. Showing in Users Page "/users" -> success.ejs
+
+## Mongodb 
+
+### Connection
+
+1. install `npm i mongoose`
+2. `import mongoose from "mongoose"`
+3. Define String and Connect 
+```
+// uri
+const uri = "uri";
+
+// Mongoose Connect
+mongoose.connect(uri,{
+   dbName:"backend"
+}).then(()=>{
+   console.log("Database Connected");
+}).catch((err)=>{
+   console.log(err);
+})
+
+```
+4. Define Schema - for Structure of Collection 
+```
+const messageSchema = mongoose.Schema({
+   name:String,
+   email:String,
+   Password : String
+})
+```
+5. Defining Model - Basically Collection Name
+
+`const message = mongoose.model("message",messageSchema);`
+
+6. use in method
+```
+app.get("/add",(req,res)=>{
+   message.create({name:"Avtar",email:"singh23@gmail.com",password:"Avtar@123"}).then(()=>{
+      res.send("Done");
+   }).catch((err)=>{
+      console.log(err);
+   })
+})
+```
+7. You can also use await and async methods + Getting Data from Input and Sending to Database
+
+```
+app.post("/contact",async (req, res) => {
+// Destructuring
+   const {name,email,password} = req.body;
+  const messageData = {name,email,password};
+  
+  await message.create(messageData);
+  // console.log(users);
+  res.render("success.ejs", {
+    Username: name,
+    Email: email,
+    Password: password,
+  });
+});
+
+```
