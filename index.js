@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 // uri
 const uri =
-  "mongodb+srv://singha2k2:Avtar123@backend.r2gb0rh.mongodb.net/?retryWrites=true&w=majority";
+  "uri";
 
 // Mongoose Connect
 mongoose
