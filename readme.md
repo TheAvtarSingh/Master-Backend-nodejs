@@ -122,3 +122,87 @@ app.listen(5000,()=>{
    
 })
 ```
+
+## Set Scipt 
+
+```
+"scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```
+run by : 
+
+` npm run dev`
+
+## EJS - (Embedded JavaScript Templating) - Generating html from Javascript
+
+`Sending Dynamic Data`
+
+1. install ` npm i ejs `
+2. use 
+> Make a folder `views`
+> move file to views
+> change extension from html to ejs
+> use 
+```
+// Get request and response
+app.get("/",(req,res)=>{
+// Sending rendered file
+res.render("index.ejs",{
+   name: "Avtar"
+});  
+
+})
+```
+
+in html specify
+
+```
+<body>
+    <h1>Hii <%=name %></h1>
+    <h1>Hii <%=locals.name %></h1>
+    <h1>Hii <%=45+90 %></h1>
+</body>
+```
+`locals is object which is coming from backend`
+
+`Sending Static Data Like Image`
+
+1. Make a Public Folder add files
+2. in index.ejs
+3. Attach files
+4. in index.js use
+> app.use(express.static(path.join(path.resolve(),"public")));
+
+`app.use() - to use files`
+`express.static() - to import static files`
+`specifying path in parameters`
+
+### Lets Make A rEAL FORM USING EJS
+
+1. Create A Form with 3 fields and Make fetching method as post
+2. Setup in index.js
+```
+app.post("/",(req,res)=>{
+   console.log(req.body);
+})
+```
+3. Setup url encoded
+` app.use(express.urlencoded({extended:true})); `
+4. response
+```
+{
+  name: 'AVTAR SINGH',
+  email: 'singha2k2@gmail.com',
+  password: 'Avtar'
+}
+```
+
+### Lets Store the Data in Temp Array
+1. Make Array : 
+const users = [];
+2. Push : 
+   users.push({"Username":req.body.name,"Email":req.body.email,"Password":req.body.password});
+   res.render("success.ejs");
