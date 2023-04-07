@@ -349,3 +349,12 @@ app.get("/login_button",isAuthenticated,(req,res)=>{
 res.render("submitted.ejs");
 })
 ```
+7. Check Complete Auth at the end
+
+### Using JWT (JSONWEBTOKENS)
+
+check last part about sign and verify
+
+### using bcrypt for hashing password
+
+check signup at last
