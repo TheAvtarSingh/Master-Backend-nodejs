@@ -358,3 +358,139 @@ check last part about sign and verify
 ### using bcrypt for hashing password
 
 check signup at last
+
+## Api and Param
+
+1. Make express code
+
+```
+import express from "express";
+
+const app = express();
+
+app.get("/",(req,res)=>{
+res.send("Hola")
+})
+
+app.listen(4000,()=>{
+    console.log("Server is Working");
+})
+```
+
+2. send response as json
+```
+ res.json({
+    name: "Avtar",
+    user: []
+  });
+  ```
+
+3. Connect db
+```
+const uri =
+  "uri";
+// Database
+mongoose
+  .connect(uri,{
+    dbName:"backend"
+  })
+  .then(() => {
+    console.log("Database Connected");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+app.get("/", (req, res) => {
+  res.json({
+    name: "Avtar",
+  });
+});
+```
+
+4. define schema and model and methods
+
+```
+const userSchema = mongoose.Schema({
+    name : String,
+    email : String,
+    password : String
+})
+
+const User = mongoose.model("users",userSchema);
+
+```
+### Getting Data
+```
+
+app.get("/users/all", async (req, res) => {
+const users  = await User.find({});
+console.log(users);
+  res.json({
+    name: "Avtar",
+    users
+  });
+});
+
+
+```
+ ### sending data throught thunder client
+
+1. Make Method
+
+```
+app.post("/users/new", async (req, res) => {
+  const { name, email, password } = req.body;
+  await User.create({
+    name,
+    email,
+    password,
+  });
+
+  res.json({
+   success : true,
+   message : "User Registered Successfully",
+  })
+});
+
+``` 
+Call
+1. To parse json we have to use `app.use(express.json());`
+2. now it will be send by json with body
+
+6. Sending Keywords in Params and getting in console see users/all part
+
+### Finding by Id
+
+#### Method 1
+
+```
+app.get("/users/id",async (req,res)=>{
+  const {id} = req.body;
+const user = await User.findById(id);
+res.json({
+  success : true,
+  user
+})
+})
+```
+
+Send
+{
+  "id" : "64308ddf706c1b6227b371f4"
+}
+
+#### Method 2
+
+```
+app.get("/users/:id",async (req,res)=>{
+  const id = req.params.id;
+  console.log(req.params);
+const user = await User.findById(id);
+res.json({
+  success : true,
+  user
+})
+})
+```
+ ` Url :localhost:4000/users/64308ddf706c1b6227b371f4` 
