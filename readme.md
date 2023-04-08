@@ -494,3 +494,133 @@ res.json({
 })
 ```
  ` Url :localhost:4000/users/64308ddf706c1b6227b371f4` 
+
+ ## Router Splitting
+
+ 1. Make routes folder and make a users.js file in it
+ 2. Make the Model folder and add a userModel.js file
+ 3. Make the Schema folder and add a userSchema.js file
+
+ > In user.js
+
+ add all the methods and use `const routes = express.Router();`
+
+ now replace app with routes , example
+ ```
+routes.get("/users/all", async (req, res) => {
+  const users = await User.find({});
+  console.log(req.query);
+  console.log(req.query.keyword);
+  res.json({
+    name: "Avtar",
+    users,
+  });
+});
+```
+
+at the end `export default routes;`
+
+*->* in Schema paste shema and export 
+*->* similarly in Models do the same
+
+_Note : Import should be with js extension like `import userRoutes from "./routes/users.js"`_
+
+*->* in app.js use `app.use(userRoutes);`
+
+*->* Hit the url yyou will get output
+
+*->* replace with `app.use("/users",userRoutes);`
+
+*->* it will work fine
+
+4. Make Controllers for more splitting
+
+Add methods with body 
+
+```
+const getAllUsers = async (req, res) => {
+  const users = await User.find({});
+
+  res.json({
+    name: "Avtar",
+    users,
+  });
+};
+```
+
+export  `export {getAllUsers,addNewUser,findUserById,findUserByUrlId};`
+
+
+use : `routes.get("/all",controller.getAllUsers);`
+
+##### Split Database File
+
+Make Data Folder and data.js
+
+```
+import mongoose from "mongoose";
+
+const uri =
+  "uri";
+// Database
+export const connectDb = ()=>{ mongoose
+    .connect(uri, {
+      dbName: "backend",
+    })
+    .then(() => {
+      console.log("Database Connected");
+    })
+    .catch((err) => {
+      console.log(err);
+    });}
+```
+
+in app.js Use ConnectDb(); 
+
+##### Splitting up server.js
+
+```
+import { app } from "./app.js";
+import { connectDb } from "./Data/database.js";
+
+connectDb();
+
+
+app.listen(4000, () => {
+  console.log("Server is Working");
+});
+```
+
+> _Change script in package.json from app to server.js_
+
+### Current Workflow 
+
+1. **Server.js** 
+-> 
+_connectDb()_ -> 
+1a. **Database.js** [Database Connected] -> 
+1b. _app.listen()_ [Starts Server on Port]
+-> 
+2. **app.js** -> _app.use("/users",userRoutes)_; 
+3. **Routes/users.js** -> 
+4. **Controllers** [where methods are defined] -> 
+5. **models.js** [where model is taken] 
+`export const User = mongoose.model("users", userSchema);` -> 
+6. **userSchema [Schema is Defined]**
+
+
+### dotenv
+make a file config.env under data -> Write 
+```
+PORT = 4000
+
+MONGO_URI = uri(without string -> ")
+```
+in app.js
+```
+import {config} from "dotenv";
+
+config({
+  path:"./data/config.env"
+})
+```
